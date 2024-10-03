@@ -2,9 +2,17 @@ import express from 'express'
 import Config from './config.json' assert {type : 'json'}
 import mongoose from 'mongoose'
 import api from './api/indexa.js'
+import cors from 'cors'
 
 const app = express();
 const port = Config.port;
+
+app.use(cors({
+    origin : Config.corsOrigin,
+    optionsSuccessStatus: 200,
+}))
+
+app.options('*', cors());
 
 mongoose
     .connect(Config.mongo_url)
