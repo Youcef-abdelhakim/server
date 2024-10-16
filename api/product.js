@@ -1,3 +1,4 @@
+import express from 'express'
 import { Router } from "express";
 import multer from "multer";
 import path from 'path';
@@ -26,7 +27,7 @@ export default ({config, db}) => {
             if (body.name && req.file) {
                 const product = {
                     name : body.name,
-                    image : req.file.path
+                    image: req.file.path.replace(/\\/g, '/')
                 };
 
                 const newproduct = await productCollection.create(product);
@@ -61,6 +62,8 @@ export default ({config, db}) => {
             res.status(500).send({success: false, message : "server problem try later !"});
         }
     })
+
+    
 
     return router
 }

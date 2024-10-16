@@ -3,6 +3,7 @@ import Config from './config.json' assert {type : 'json'}
 import mongoose from 'mongoose'
 import api from './api/indexa.js'
 import cors from 'cors'
+import path from 'path';
 
 const app = express();
 const port = Config.port;
@@ -11,6 +12,8 @@ app.use(cors({
     origin : Config.corsOrigin,
     optionsSuccessStatus: 200,
 }))
+
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.options('*', cors());
 
