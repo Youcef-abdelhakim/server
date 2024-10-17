@@ -3,6 +3,7 @@ import { Router } from "express";
 import multer from "multer";
 import path from 'path';
 import { productCollection } from "../modles/indexS.js";
+import { log } from 'console';
 
 
 const storage = multer.diskStorage({
@@ -24,9 +25,18 @@ export default ({config, db}) => {
 
         try{
             const body = req.body;
-            if (body.name && req.file) {
+            if (body.name &&
+                body.brand &&
+                body.price &&
+                body.Quantity &&
+                body.category &&
+                 req.file) {
                 const product = {
                     name : body.name,
+                    brand : body.brand,
+                    price : body.price,
+                    Quantity: body.Quantity,
+                    category : body.category,
                     image: req.file.path.replace(/\\/g, '/')
                 };
 
@@ -46,19 +56,25 @@ export default ({config, db}) => {
         }
     });
 
-    router.get('/demo/:name', async(req, res) => {
+    router.get('/demo/:filter/:value', async(req, res) => {
+
+        const value = req.params.value;
+        const filter = req.params.filter;
+        const query  = filter === 'name' ? {'name' : value} : {'category' : value}
+
         try {
-            const product = await productCollection.findOne({name: req.params.name});
-            if(product){
+            const products = await productCollection.find(query);
+            if(products && products.length > 0){
+                console.log(products);
                 res.status(200).send({
                     success: true,
-                    name : product.name,
-                    imageUrl : `http://localhost:8000/${product.image}`
+                    products
                 })
             } else{
                 res.status(409).send({ success: false, message : "not fount "});
             }
         } catch(error){
+            console.error("error catched!", error);
             res.status(500).send({success: false, message : "server problem try later !"});
         }
     })
