@@ -45,7 +45,7 @@ export default ({config, db}) => {
                 if(newproduct){
                     res.status(201).send({ success : true, message : product});
                 } else{
-                    res.status(499).send({ success : true, message : "failed to creat you new product sorry"});
+                    res.status(500).send({ success : false, message : "failed to creat you new product sorry"});
                 }
             } else{
                 res.status(400).send({success : false, message : "please provide all the informations "});
@@ -71,7 +71,7 @@ export default ({config, db}) => {
                     products
                 })
             } else{
-                res.status(409).send({ success: false, message : "not fount "});
+                res.status(404).send({ success: false, message : "not fount "});
             }
         } catch(error){
             console.error("error catched!", error);
