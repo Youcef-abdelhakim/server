@@ -56,14 +56,14 @@ export default ({config, db}) => {
         }
     });
 
-    router.get('/demo/:filter/:value', async(req, res) => {
+    router.get('/demo', async(req, res) => {
 
-        const value = req.params.value;
-        const filter = req.params.filter;
-        const query  = filter === 'name' ? {'name' : value} : {'category' : value}
+        // const value = req.params.value;
+        // const filter = req.params.filter;
+        // const query  = filter === 'name' ? {'name' : value} : {'category' : value}
 
         try {
-            const products = await productCollection.find(query);
+            const products = await productCollection.find({});
             if(products && products.length > 0){
                 console.log(products);
                 res.status(200).send({

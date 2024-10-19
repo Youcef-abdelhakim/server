@@ -30,7 +30,7 @@ export default ({config, db}) => {
         }
     });
 
-    router.get('categoryget', async(req, res) =>{
+    router.get('/categoryget', async(req, res) =>{
         try{
             const categorys = await categoryCollection.find({});
             if(categorys.length > 0){
