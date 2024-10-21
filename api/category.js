@@ -40,7 +40,7 @@ export default ({config, db}) => {
             }
         } catch(error){
             console.error("error catched:", error);
-            res.status(500).message({success: false, message:"server problem try later "});
+            res.status(500).send({success: false, message:"server problem try later "});
         }
     })
     return router;
