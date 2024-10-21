@@ -36,7 +36,7 @@ export default ({config, db}) => {
             if(categorys.length > 0){
                 res.status(200).send({success: true, message:categorys});
             } else{
-                res.status(404).message({success: false, message: 'not fount '});
+                res.status(404).send({success: false, message: 'not fount '});
             }
         } catch(error){
             console.error("error catched:", error);

@@ -48,7 +48,7 @@ export default ({config, db}) => {
                     res.status(500).send({ success : false, message : "failed to creat you new product sorry"});
                 }
             } else{
-                res.status(400).send({success : false, message : "please provide all the informations "});
+                res.status(400).send({success : false, message : "please --provide all the informations "});
             }
         } catch (err) {
             console.error("errore creating yoyour product", err);
